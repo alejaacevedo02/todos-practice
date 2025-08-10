@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -31,6 +32,7 @@ import com.packt.todoassigment.model.TodoEvent
 import com.packt.todoassigment.ui.theme.TodoAssigmentTheme
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.packt.todoassigment.model.TodoUiState
+import kotlin.math.sin
 
 
 @Composable
@@ -82,16 +84,21 @@ fun AddTodo(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.weight(1f)) {
             TextField(
+                modifier = Modifier.fillMaxWidth(),
                 value = title,
+                singleLine = true,
                 onValueChange = { newText ->
                     onEvent(TodoEvent.OnTitleChanged(newText))
                 },
                 placeholder = { Text("Title") })
 
             TextField(
+                modifier = Modifier.fillMaxWidth(),
                 value = description,
+                singleLine = true,
                 onValueChange = { newText ->
                     onEvent(TodoEvent.OnDescriptionChanged(newText))
 
@@ -171,16 +178,16 @@ internal fun TodoItemPreview() {
         ),
         Todo(id = 6, title = "Finish todos app", description = "philipp course", isChecked = true),
         Todo(id = 7, title = "1c Pay utility bills", isChecked = true),
-        Todo(id = 7, title = "2 Pay utility bills", isChecked = true),
-        Todo(id = 7, title = "3 Pay utility bills", isChecked = true)
+        Todo(id = 8, title = "2 Pay utility bills", isChecked = true),
+        Todo(id = 9, title = "3 Pay utility bills", isChecked = true)
 
     )
     TodoAssigmentTheme {
         TodoItemScreen(
             todoUiState = TodoUiState(
                 previewTodos,
-                newTitle = "",
-                newDescription = ""
+                newTitle = "long title hgcvvhhffffffffffffffbvhvgffccfcfcfcxxf",
+                newDescription = "Research destinations and accommodation bbggfffyyfyvcfyvghjhhghgjjhggugjjjjjjjjjjjj"
             ),
             onEvent = {}
         )

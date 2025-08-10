@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import java.util.concurrent.atomic.AtomicInteger
 
- val previewTodos = listOf(
+val previewTodos = listOf(
     Todo(
         id = 1,
         title = "Finalize report",
@@ -36,6 +36,7 @@ import java.util.concurrent.atomic.AtomicInteger
     Todo(id = 9, title = "3 Pay utility bills", isChecked = true)
 
 )
+
 class TodosViewModel : ViewModel() {
 
     private val _state = MutableStateFlow(TodoUiState(todos = previewTodos))
@@ -77,18 +78,21 @@ class TodosViewModel : ViewModel() {
 
     private fun updateTodos() {
         val newId = idCounter.getAndIncrement()
-        val newTodo = Todo(
-            id = newId,
-            title = state.value.newTitle,
-            description = state.value.newDescription,
-            isChecked = false
-        )
-        _state.update {
-            it.copy(
-                todos = state.value.todos + newTodo,
-                newTitle = "",
-                newDescription = ""
+        if (state.value.newTitle.isNotBlank()) {
+            val newTodo = Todo(
+                id = newId,
+                title = state.value.newTitle,
+                description = state.value.newDescription,
+                isChecked = false
             )
+
+            _state.update {
+                it.copy(
+                    todos = state.value.todos + newTodo,
+                    newTitle = "",
+                    newDescription = ""
+                )
+            }
         }
     }
 

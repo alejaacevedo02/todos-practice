@@ -58,7 +58,9 @@ class TodosViewModel : ViewModel() {
         )
         _state.update {
             it.copy(
-                todos = state.value.todos + newTodo
+                todos = state.value.todos + newTodo,
+                newTitle = "",
+                newDescription = ""
             )
         }
     }
